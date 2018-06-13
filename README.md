@@ -1,5 +1,7 @@
 # Work at Olist
 
+[![Build Status](https://travis-ci.org/wisner23/work-at-olist.svg?branch=master)](https://travis-ci.org/wisner23/work-at-olist)
+
 [Olist](https://olist.com/) is a company that offers an integration platform
 for sellers and marketplaces allowing them to sell their products across
 multiple channels.
