@@ -21,7 +21,10 @@ class CallStartSerializer(serializers.ModelSerializer):
 
         if self.get_call_or_null(data['call']['id']):
             raise serializers.ValidationError('The call_id its already registered.')
-        
+
+        if self.get_call_record_or_null(data['id']):
+            raise serializers.ValidationError('The id its already registered.')
+
         return data
 
     def create(self, validated_data):
@@ -35,5 +38,13 @@ class CallStartSerializer(serializers.ModelSerializer):
             return Call.objects.get(pk=call_id)
         except Call.DoesNotExist:
             return None
+
+    def get_call_record_or_null(self, record_id):
+        try:
+            return CallRecord.objects.get(pk=record_id)
+        except CallRecord.DoesNotExist:
+            return None
+
+       
 
 
