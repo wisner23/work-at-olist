@@ -12,12 +12,12 @@ class CallRecord(models.Model):
     START = 'start'
     END = 'end'
 
-    _RECORD_CALL_CHOICE = [
-        (1, START),
-        (2, END),
-    ]
+    _CALL_RECORD_TYPES = (
+        (START, 'START'),
+        (END, 'END')
+    ) 
 
     id = models.IntegerField(primary_key=True)
-    type = models.IntegerField(choices=_RECORD_CALL_CHOICE)
+    type = models.CharField(max_length=10, choices=_CALL_RECORD_TYPES, default=START)
     timestamp = models.DateTimeField()
     call = models.ForeignKey(Call, on_delete=models.CASCADE) 

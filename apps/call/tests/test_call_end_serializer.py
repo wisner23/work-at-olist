@@ -28,7 +28,7 @@ class TestCallEndSerializer(TestCase):
     def data_payload(self):
         data = {
             'id': 2,
-            'type': 2,
+            'type': CallRecord.END,
             'timestamp': '2017-12-12T15:17:13Z',
             'call_id': 1
         }

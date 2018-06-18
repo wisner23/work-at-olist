@@ -1,6 +1,6 @@
 from django.test import TestCase
 from ..serializers import CallStartSerializer 
-from ..models import Call
+from ..models import Call, CallRecord
 
 class TestCallStartSerializer(TestCase):
 
@@ -21,7 +21,7 @@ class TestCallStartSerializer(TestCase):
     def data_payload(self):
         data = { 
             "id":  1,
-            "type":  1, 
+            "type": CallRecord.START, 
             "timestamp":  "2017-12-12T15:07:13Z", 
             "call_id":  1, 
             "source":  "16997563362", 
