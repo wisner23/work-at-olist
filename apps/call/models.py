@@ -21,3 +21,6 @@ class CallRecord(models.Model):
     type = models.CharField(max_length=10, choices=_CALL_RECORD_TYPES, default=START)
     timestamp = models.DateTimeField()
     call = models.ForeignKey(Call, on_delete=models.CASCADE) 
+
+    class Meta:
+        unique_together = ('call', 'type')
