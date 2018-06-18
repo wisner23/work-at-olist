@@ -18,6 +18,14 @@ class TestCallStartSerializer(TestCase):
         self.assertEqual(serializer.data, self.data)
         self.assertEqual(call_amount, AMOUT_CALL_SHOULD_BE_CREATED)
 
+    def test_start_two_call_same_id_should_throw_error(self):
+        AMOUT_CALL_SHOULD_BE_CREATED = 1
+        call = Call.objects.create(id=1, source='16997563362', destination='16997563362')
+        
+        serializer = CallStartSerializer(data=self.data)
+        
+        self.assertFalse(serializer.is_valid())
+
     def data_payload(self):
         data = { 
             "id":  1,
