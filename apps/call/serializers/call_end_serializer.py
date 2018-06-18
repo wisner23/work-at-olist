@@ -16,12 +16,16 @@ class CallEndSerializer(serializers.ModelSerializer):
             'call_id'
         ]
 
+    def validate(self, data):
+        if not self._get_or_null(data['call']['id']):
+            raise serializers.ValidationError('There\'s no call registered to this call_id.')
+
+        return data
+
     def create(self, validated_data):
         call = self._get_or_null(validated_data['call']['id'])
-        if not call:
-            raise Http404()
-
         validated_data['call'] = call
+
         return CallRecord.objects.create(**validated_data)
 
     def _get_or_null(self, call_id):
