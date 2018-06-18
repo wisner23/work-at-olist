@@ -7,7 +7,7 @@ from .models import CallRecord
 
 class CallApi(APIView):
 
-    serializer = CallStartSerializer
+    serializer_class = CallStartSerializer
 
     def post(self, request):
         
