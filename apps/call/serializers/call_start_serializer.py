@@ -1,5 +1,7 @@
 from rest_framework import serializers
+from django.db import transaction
 from ..models import Call, CallRecord
+
 
 class CallStartSerializer(serializers.ModelSerializer):
     call_id = serializers.IntegerField(source="call.id")
@@ -27,6 +29,7 @@ class CallStartSerializer(serializers.ModelSerializer):
 
         return data
 
+    @transaction.atomic
     def create(self, validated_data):
         call = Call.objects.create(**validated_data['call'])
         validated_data.pop('call')

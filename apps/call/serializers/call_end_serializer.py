@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.http import Http404
+from django.db import transaction
 from ..models import Call, CallRecord
 
 
@@ -29,6 +30,7 @@ class CallEndSerializer(serializers.ModelSerializer):
 
         return data
 
+    @transaction.atomic
     def create(self, validated_data):
         call = self.get_call_or_null(validated_data['call']['id'])
         validated_data['call'] = call
