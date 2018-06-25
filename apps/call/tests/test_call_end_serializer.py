@@ -1,7 +1,7 @@
 from django.test import TestCase
 from ..serializers import CallEndSerializer
 from ..models import Call, CallRecord
-
+from rest_framework import serializers
 
 class TestCallEndSerializer(TestCase):
 
@@ -23,6 +23,23 @@ class TestCallEndSerializer(TestCase):
 
         self.assertEqual(call_record_count, AMOUNT_CALL_RECORD_SHOULD_BE_CREATED)
         self.assertEqual(call_count, AMOUNT_CALL_SHOULD_BE_CREATED)
+
+    def test_create_end_with_call_doesnt_exist_should_except(self):
+        data = self.data
+        data['call_id'] = 2
+        serializer = CallEndSerializer(data=data)
+
+        with(self.assertRaises(serializers.ValidationError)):
+            serializer.is_valid(raise_exception=True)
+
+    def test_end_call_thats_already_finished_should_except(self):
+        serializer = CallEndSerializer(data=self.data)
+        self.assertTrue(serializer.is_valid())
+        serializer.save()
+
+        second_serializer = CallEndSerializer(data=self.data)
+        with(self.assertRaises(serializers.ValidationError)):
+            second_serializer.is_valid(raise_exception=True)
 
 
     def data_payload(self):
